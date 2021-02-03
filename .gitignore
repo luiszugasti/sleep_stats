@@ -238,3 +238,6 @@ fabric.properties
 
 # Testing
 test/test_output/
+
+# macos stuff
+.DS_Store
