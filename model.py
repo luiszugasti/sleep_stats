@@ -1,8 +1,8 @@
 from sktime.forecasting.all import *
 from loadData import *
-print(data)
 
-y = load_airline()
+# y = load_airline()
+y = first_array
 y_train, y_test = temporal_train_test_split(y)
 fh = ForecastingHorizon(y_test.index, is_relative=False)
 forecaster = ThetaForecaster(sp=12)
