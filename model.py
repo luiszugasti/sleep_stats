@@ -1,4 +1,6 @@
 from sktime.forecasting.all import *
+from loadData import *
+print(data)
 
 y = load_airline()
 y_train, y_test = temporal_train_test_split(y)
