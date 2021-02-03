@@ -13,7 +13,11 @@
 </article>
   
 This project was created for the introductory hackathon of the MLH fellowship. Built with:
- - **List technologies here**
+ - Python
+    - Frameworks: sktime, 
+ - HTML
+ - CSS
+ - 
 
 ## Table of Contents
 
@@ -73,7 +77,7 @@ TODO: link to License.
 ## Contact
 
 TODO: Add Kavin's twitter if he has one  
-Kavin Anand - []()  
+Kavin Anand - [@kavin\_\_anand](https://twitter.com/kavin_anand)  
 Luis Zugasti - [@luis\_\_zugasti](https://twitter.com/luis__zugasti)
 
 Project Link: []()
