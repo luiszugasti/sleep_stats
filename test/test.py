@@ -24,10 +24,20 @@ class TestParser(unittest.TestCase):
     def test_output_data_correctly(self):
         """
         With a predefined output data format,
-        test that it is written properly to a csv file.
+        test that it is written to a file, and that the data within is correct.
         """
-        # TODO: stub
-        pass
+        sample_repr = {'7': {'start_time': '9pm', 'end_time': '8am', 'quality_of_sleep': 8},
+                       '6': {'start_time': '3am', 'end_time': '6am', 'quality_of_sleep': 0},
+                       '5': {'start_time': '10pm', 'end_time': '7am', 'quality_of_sleep': 6},
+                       '4': {'start_time': '9pm', 'end_time': '7am', 'quality_of_sleep': 7},
+                       '3': {'start_time': '9pm', 'end_time': '6am', 'quality_of_sleep': 7},
+                       '2': {'start_time': '8pm', 'end_time': '7am', 'quality_of_sleep': 6},
+                       '1': {'start_time': '9pm', 'end_time': '7am', 'quality_of_sleep': 7}}
+
+        file_path = dc.get_os_filename("sample_test_output.csv", "test_output")
+        dc.write_csv_user(file_path, sample_repr)
+
+        raise NotImplementedError("Todo: finish test")
 
     def test_correct_error_raised(self):
         """

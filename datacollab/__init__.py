@@ -58,6 +58,28 @@ def write_csv_user(file_path, data):
     :param data: dictionary to be written to file path.
     :return: None.
     """
+
+    days = list(data.keys())
+    days.sort()
+    attributes = data["1"].keys() # get the first entry
+    attribute_rows = {}
+    attribute_rows["day"] = days
+    for attribute in attributes:
+        attribute_rows[attribute] = []
+    for day in days:
+        for attribute in data[day]:
+            attribute_rows[attribute].append(data[day][attribute])
+
+    # TODO: why is the order inverted?
+    days.reverse()
+    attribute_rows["day"] = days
+
+    # writing step
+    with open(file_path, 'w', newline='') as csvfile:
+        writer = csv.writer(csvfile, delimiter=',')
+        for key in attribute_rows:
+            writer.writerow([key] + attribute_rows[key])
+
     pass
 
 
