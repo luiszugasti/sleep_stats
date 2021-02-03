@@ -2,16 +2,35 @@ import csv
 import os
 
 
-def parser_csv_user(file_path):
+def get_os_filename(file_path, *args):
+    file_path_os = ""
 
     if os.name == "nt":
-        file_path_os = os.getcwd() + "\\" + file_path
+        intermediate_dirs = ""
+        for arg in args:
+            intermediate_dirs = intermediate_dirs + arg + "\\"
+        file_path_os = os.getcwd() + "\\" + intermediate_dirs + file_path
+
     elif os.name == "posix":
-        file_path_os = os.getcwd() + "/" + file_path
+        intermediate_dirs = ""
+        for arg in args:
+            intermediate_dirs = intermediate_dirs + arg + "\\"
+        file_path_os = os.getcwd() + "/" + intermediate_dirs + file_path
     else:
         raise NotImplementedError("Unsupported Operating System.")
 
-    with open(file_path_os, newline='') as csvfile:
+    return file_path_os
+
+
+def parser_csv_user(file_path):
+    """
+    Parse the csv in the "user" format and return its dictionary representation.
+
+    :param file_path: Fully specified file_path.
+    :return: dictionary representation of file that file_path points to.
+    """
+
+    with open(file_path, newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         parsed_data = {}
         for row in reader:
@@ -29,6 +48,17 @@ def parser_csv_user(file_path):
                     parsed_data[str(entry)]["quality_of_sleep"] = int(row[entry])
 
     return parsed_data
+
+
+def write_csv_user(file_path, data):
+    """
+    Writes the dictionary specified by data to the file contained in file_path
+
+    :param file_path: fully specified file path.
+    :param data: dictionary to be written to file path.
+    :return: None.
+    """
+    pass
 
 
 if __name__ == '__main__':
