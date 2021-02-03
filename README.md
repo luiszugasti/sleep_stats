@@ -14,7 +14,7 @@
   
 This project was created for the introductory hackathon of the MLH fellowship. Built with:
  - Python
-    - Frameworks: sktime, 
+    - Frameworks: sktime, NumPy, SciPy, Pandas, scikit-learn
  - HTML
  - CSS
  - 
@@ -43,6 +43,8 @@ $ cd repo
 2. Install the [requirements]():
 ```
 $ pip install -r requirements.txt
+$ pip install sktime
+$ pip install pmdarima
 ```
 
 ## Usage
