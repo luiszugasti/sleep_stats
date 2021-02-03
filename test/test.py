@@ -1,6 +1,6 @@
 import unittest
 
-from datacollab import csv_data_parser
+from datacollab import parser_csv_user
 from datacollab import file_opener
 
 class TestParser(unittest.TestCase):
