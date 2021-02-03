@@ -37,7 +37,9 @@ class TestParser(unittest.TestCase):
         file_path = dc.get_os_filename("sample_test_output.csv", "test_output")
         dc.write_csv_user(file_path, sample_repr)
 
-        raise NotImplementedError("Todo: finish test")
+        comparison_repr = dc.parser_csv_user(file_path)
+
+        self.assertEqual(comparison_repr, dc.parser_csv_user(file_path))
 
     def test_correct_error_raised(self):
         """
