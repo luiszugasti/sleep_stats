@@ -14,7 +14,7 @@ fsspec==0.8.5
 hcrystalball==0.1.10
 HeapDict==1.0.1
 hijri-converter==2.1.1
-holidays==0.10.5
+holidays>=0.10.5
 idna==2.10
 joblib==1.0.0
 jplephem==2.15
