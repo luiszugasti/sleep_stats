@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-data = pd.read_csv("data/sleepdata.csv",delimiter=";")
+data = pd.read_csv("data/sleepdata.csv",delimiter=",")
 data = data.iloc[:, : 4]
 
 # n x 2 array. Column 1 is days from 1 to n, column 2 is the time slept
