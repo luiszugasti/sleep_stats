@@ -11,6 +11,8 @@
     <img src="" alt="Stub for showcasing functionality 2"/>
   </div>
 </article>
+
+[![Build Status](https://travis-ci.com/luiszugasti/MLHFellowshipWarmup.svg?branch=master)](https://travis-ci.com/luiszugasti/MLHFellowshipWarmup)
   
 This project was created for the introductory hackathon of the MLH fellowship. Built with:
  - Python
