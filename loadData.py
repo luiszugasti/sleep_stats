@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import os
 
-def main():
+def dataLoader():
     df = pd.read_csv("data/sleepdata.csv") # may need to add os.getcwd() if on windows machine
     # Drop extraneous columns not used in analysis
     df = df.drop('Heart rate', 1)
@@ -46,4 +46,4 @@ def extract_date(x):
     return s[0]
 
 if __name__ == '__main__':
-    main()
+    dataLoader()
