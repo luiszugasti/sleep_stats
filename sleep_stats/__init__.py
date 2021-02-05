@@ -1,10 +1,10 @@
 import csv
 import os
+import sktime.forecasting.all as sk
+import numpy as np
 
 
 def get_os_filename(file_path, *args):
-    file_path_os = ""
-
     if os.name == "nt":
         intermediate_dirs = ""
         for arg in args:
@@ -83,8 +83,43 @@ def write_csv_user(file_path, data):
     pass
 
 
+def predict_sleep(user_history, new_data, time_forecast=None):
+    """
+    Given the user's historic sleep data and the new, voluntarily provided
+    data, generate a new forecast for the user's sleep.
+
+    :param user_history: historic user sleep data
+    :param new_data: new data provided in this run of "predict_sleep"
+    :param **kwargs:
+        time_forecast: the length of the forecast is a max of seven days.
+        If time_forecast is provided, this value overrides the forecast length
+        (up to a max of seven days)
+    :return: the sleep_forecast
+    """
+    forecast_length = len(new_data)
+    if time_forecast:
+        forecast_length = time_forecast
+    forecast_length = min(forecast_length, 7)
+
+    # generate a relative forecasting horizon
+    rfh = np.arange(forecast_length) + 1
+
+    # Specify the model
+    forecaster = sk.ExponentialSmoothing(trend="add", seasonal="multiplicative", sp=7)
+
+    # fit it to the user_history
+    forecaster.fit(user_history)
+
+    # generate a prediction
+    sleep_forecast = forecaster.predict(rfh)
+
+    return sleep_forecast
+
+
+
+
 if __name__ == '__main__':
-    """ Run through the usage of datacollab"""
+    """ Run through the usage of sleep_stats"""
     file_name = "Sample Format.csv"
     user_entries = parser_csv_user(file_name)
 
