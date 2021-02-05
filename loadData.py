@@ -22,8 +22,11 @@ def main():
 
     # Append user data to test
     result = df.append(user_df)
-    print(result)
-    return result
+    sleepArray = result.iloc[:, 0:2]
+    timeInBedArray = result[['Date','Time in bed']]
+    print(sleepArray)
+    print(timeInBedArray)
+    return sleepArray, timeInBedArray
 
 
 
