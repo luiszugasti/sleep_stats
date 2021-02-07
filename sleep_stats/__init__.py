@@ -116,11 +116,16 @@ def predict_sleep(user_history, new_data, time_forecast=None):
     return sleep_forecast
 
 
-
+def main():
+    # Run through the usage of sleep_stats
+    file_name = input("Enter the name of your sleep csv file: ")
+    user_entries = parser_csv_user(file_name)
+    print(user_entries)
 
 if __name__ == '__main__':
     """ Run through the usage of sleep_stats"""
-    file_name = "Sample Format.csv"
-    user_entries = parser_csv_user(file_name)
+    main()
+    # file_name = "Sample Format.csv"
+    # user_entries = parser_csv_user(file_name)
 
-    print(user_entries)
+    # print(user_entries)
