@@ -1,7 +1,9 @@
 import csv
+import pandas as pd
+import numpy as np
 import os
 import sktime.forecasting.all as sk
-import numpy as np
+
 
 
 def get_os_filename(file_path, *args):
@@ -47,7 +49,7 @@ def parser_csv_user(file_path):
                 for entry in range(1, len(row)):
                     parsed_data[str(entry)]["quality_of_sleep"] = int(row[entry])
 
-    return parsed_data
+    return parsed_data, len(parsed_data)
 
 
 def write_csv_user(file_path, data):
@@ -116,11 +118,66 @@ def predict_sleep(user_history, new_data, time_forecast=None):
     return sleep_forecast
 
 
+def main():
+    # Run through the usage of sleep_stats
+    file_name = input("Enter the name of your sleep csv file: ")
+    user_entries, num_entries = parser_csv_user(file_name)
+    # Load the users prior data
+    sleepArray, timeInBedArray = dataLoader()
 
+    forecast = predict_sleep(sleepArray, user_entries, num_entries)
+    print(forecast)
+    return forecast
+
+
+### THE FUNCTIONS BELOW ARE IDENTICAL TO THE ONES CONTAINED IN loadData.py 
+
+def dataLoader():
+    df = pd.read_csv("data/sleepdata.csv")  # may need to add os.getcwd() if on windows machine
+    # Drop extraneous columns not used in analysis
+    df = df.drop('Heart rate', 1)
+    df = df.drop('Activity (steps)', 1)
+    df = df.drop('Sleep Notes', 1)
+    df = df.drop('Wake up', 1)
+    df = df.drop('End', 1)
+    # Edit below data to fit appropriate constraints
+    df['Sleep quality'] = df['Sleep quality'].apply(truncate_percentage_to_range)
+    df['Time in bed'] = df['Time in bed'].apply(time_to_minutes)
+    df['Start'] = df['Start'].apply(extract_date)
+    df = df.rename(columns={'Start': 'Date'})
+
+    # Obtain user data
+    user_df = pd.read_csv("test/test_inputs/sample_7_days.csv")  # may need to add os.getcwd() if on windows machine
+    user_df["Time in bed"] = 60 * user_df["Time in bed"]
+
+    # Append user data to test
+    result = df.append(user_df)
+    sleepArray = result.iloc[:, 0:2]
+    timeInBedArray = result[['Date', 'Time in bed']]
+    print(sleepArray)
+    print(timeInBedArray)
+    return sleepArray, timeInBedArray
+
+
+# Helper functions for modifying the data to fit the correct format
+def truncate_percentage_to_range(x):
+    x = x.strip('%')
+    x = int(x) / 10.0
+    return x
+
+
+def time_to_minutes(x):
+    s = x.split(":")
+    s = int(s[0]) * 60 + int(s[1])
+    return s
+
+
+def extract_date(x):
+    s = x.split(" ")
+    return s[0]
 
 if __name__ == '__main__':
     """ Run through the usage of sleep_stats"""
-    file_name = "/test/test_inputs/sample_7_days.csv"
-    user_entries = parser_csv_user(os.getcwd() + file_name)
+    main()
 
-    print(user_entries)
+
