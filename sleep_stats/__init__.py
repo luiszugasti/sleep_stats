@@ -120,7 +120,7 @@ def predict_sleep(user_history, new_data, time_forecast=None):
 
 if __name__ == '__main__':
     """ Run through the usage of sleep_stats"""
-    file_name = "Sample Format.csv"
-    user_entries = parser_csv_user(file_name)
+    file_name = "/test/test_inputs/sample_7_days.csv"
+    user_entries = parser_csv_user(os.getcwd() + file_name)
 
     print(user_entries)

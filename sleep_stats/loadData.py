@@ -4,7 +4,7 @@ import os
 
 
 def dataLoader():
-    df = pd.read_csv("data/sleepdata.csv")  # may need to add os.getcwd() if on windows machine
+    df = pd.read_csv("data/user_history.csv")  # may need to add os.getcwd() if on windows machine
     # Drop extraneous columns not used in analysis
     df = df.drop('Heart rate', 1)
     df = df.drop('Activity (steps)', 1)
