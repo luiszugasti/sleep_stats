@@ -1,6 +1,6 @@
 import unittest
 
-import datacollab as dc
+import sleep_stats as dc
 
 
 class TestParser(unittest.TestCase):
