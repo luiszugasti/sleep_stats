@@ -36,11 +36,15 @@ def start_program():
     historical_user_data = sleep_stats.forecast.read_data(name_space["historical_data_location"])
     # read in (optional) user data
     new_user_data = sleep_stats.forecast.read_data(name_space["new_user_data_location"], is_user=True)
+    user_sleepTime = new_user_data[0]
+    user_sleepQuality = new_user_data[1]
+    # Transform sleep time into minutes instead of hours
+    user_sleepTime = 60 * user_sleepTime.iloc[:]
 
     # only care about time, date relationship!
-    merged_data = sleep_stats.forecast.merge_data(historical_user_data[0], new_user_data[0])
+    merged_data = sleep_stats.forecast.merge_data(historical_user_data[0], user_sleepTime)
     # state machine
-    predictions = sleep_stats.forecast.run_forecast(merged_data, len(new_user_data[0].index))
+    predictions = sleep_stats.forecast.run_forecast(merged_data, len(user_sleepTime.index))
 
     print("Predictions made.")
     sleep_stats.forecast.save_data(os.getcwd() + "/default/predictions.csv", predictions)
@@ -49,4 +53,4 @@ def start_program():
 if __name__ == '__main__':
     start_program()
 else:
-    raise NotImplementedError("__main__.py cannot be used as an API")
+    raise NotImplementedError("main.py cannot be used as an API")
