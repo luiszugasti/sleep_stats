@@ -42,10 +42,11 @@ def start_program():
     # state machine
     predictions = sleep_stats.forecast.run_forecast(merged_data, len(new_user_data[0].index))
 
+    print("Predictions made.")
     sleep_stats.forecast.save_data(os.getcwd() + "/default/predictions.csv", predictions)
 
 
 if __name__ == '__main__':
     start_program()
 else:
-    raise NotImplementedError("main.py cannot be used as an API")
+    raise NotImplementedError("__main__.py cannot be used as an API")
