@@ -5,19 +5,25 @@ import os
 import sktime.forecasting.all as sk
 
 
-
-def get_os_filename(file_path, *args):
+def get_os_filename(file_name, *args):
+    """
+        UN-USED API - Still figuring out what it will be used for.
+    :param file_name: File name, including extension, to the file you wish to use.
+    :param args: sequential, continual in-depth folders until we get to your file.
+    :return:
+    """
+    print("WARNING: This API has been deprecated and may go out of use!")
     if os.name == "nt":
         intermediate_dirs = ""
         for arg in args:
             intermediate_dirs = intermediate_dirs + arg + "\\"
-        file_path_os = os.getcwd() + "\\" + intermediate_dirs + file_path
+        file_path_os = os.getcwd() + "\\" + intermediate_dirs + file_name
 
     elif os.name == "posix":
         intermediate_dirs = ""
         for arg in args:
-            intermediate_dirs = intermediate_dirs + arg + "\\"
-        file_path_os = os.getcwd() + "/" + intermediate_dirs + file_path
+            intermediate_dirs = intermediate_dirs + arg + "/"
+        file_path_os = os.getcwd() + "/" + intermediate_dirs + file_name
     else:
         raise NotImplementedError("Unsupported Operating System.")
 
@@ -26,12 +32,15 @@ def get_os_filename(file_path, *args):
 
 def parser_csv_user(file_path):
     """
+    UN-USED API - Will likely be removed, pandas does a better job.
     Parse the csv in the "user" format and return its dictionary representation.
 
     :param file_path: Fully specified file_path.
     :return: dictionary representation of file that file_path points to.
     """
 
+    print("WARNING: This API has been deprecated and may go out of use!\n"
+          "Please use sleep_data.forecast.read_data()")
     with open(file_path, newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         parsed_data = {}
@@ -54,16 +63,19 @@ def parser_csv_user(file_path):
 
 def write_csv_user(file_path, data):
     """
+    UN-USED API - Will likely be removed, pandas does a better job.
     Writes the dictionary specified by data to the file contained in file_path
 
     :param file_path: fully specified file path.
     :param data: dictionary to be written to file path.
     :return: None.
     """
+    print("WARNING: This API has been deprecated and may go out of use!\n"
+          "Please use sleep_stats.forecast.save_data()")
 
     days = list(data.keys())
     days.sort()
-    attributes = data["1"].keys() # get the first entry
+    attributes = data["1"].keys()  # get the first entry
     attribute_rows = {}
     attribute_rows["day"] = days
     for attribute in attributes:
@@ -87,6 +99,7 @@ def write_csv_user(file_path, data):
 
 def predict_sleep(user_history, new_data, time_forecast=None):
     """
+    UN-USED API - Will likely be removed, forecast.
     Given the user's historic sleep data and the new, voluntarily provided
     data, generate a new forecast for the user's sleep.
 
@@ -98,6 +111,8 @@ def predict_sleep(user_history, new_data, time_forecast=None):
         (up to a max of seven days)
     :return: the sleep_forecast
     """
+    print("WARNING: This API has been deprecated and may go out of use!\n"
+          "Please use sleep_stats.forecast.run_forecast()")
     forecast_length = len(new_data)
     if time_forecast:
         forecast_length = time_forecast
@@ -119,6 +134,10 @@ def predict_sleep(user_history, new_data, time_forecast=None):
 
 
 def main():
+    """
+    Deprecated - will be removed once tests pass on __main__.py's functions
+    :return:
+    """
     # Run through the usage of sleep_stats
     file_name = input("Enter the name of your sleep csv file: ")
     user_entries, num_entries = parser_csv_user(file_name)
@@ -130,9 +149,9 @@ def main():
     return forecast
 
 
-### THE FUNCTIONS BELOW ARE IDENTICAL TO THE ONES CONTAINED IN loadData.py 
-
 def dataLoader():
+    print("WARNING: This API has been deprecated and may go out of use!\n"
+          "The schema referred to by this API is no longer in use.")
     df = pd.read_csv("data/sleepdata.csv")  # may need to add os.getcwd() if on windows machine
     # Drop extraneous columns not used in analysis
     df = df.drop('Heart rate', 1)
@@ -176,8 +195,7 @@ def extract_date(x):
     s = x.split(" ")
     return s[0]
 
+
 if __name__ == '__main__':
     """ Run through the usage of sleep_stats"""
     main()
-
-
