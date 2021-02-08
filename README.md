@@ -7,8 +7,7 @@
   </p>
     
   <div align="center">
-    <img src="" alt="Stub for showcasing functionality 1"/>
-    <img src="" alt="Stub for showcasing functionality 2"/>
+    <img src="https://github.com/luiszugasti/sleep_stats/blob/master/images/demo.gif" alt="Showcasing the usage of python -m sleep_stats"/>
   </div>
 </article>
 
