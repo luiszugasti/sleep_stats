@@ -14,19 +14,14 @@
 
 [![Build Status](https://travis-ci.com/luiszugasti/MLHFellowshipWarmup.svg?branch=master)](https://travis-ci.com/luiszugasti/MLHFellowshipWarmup)
   
-This project was created for the introductory hackathon of the MLH fellowship. Built with:
+This project was created for the introductory hackathon of the MLH fellowship. Built with love. :heart::
  - Python
-    - Frameworks: sktime, NumPy, SciPy, Pandas, scikit-learn
- - HTML
- - CSS
- - 
+    - Toolkits: sktime, NumPy, SciPy, Pandas
+ - Jupyter Notebook
 
 ## Table of Contents
 
-
   - [Installation](#installation)
-  - [Usage](#usage)
-  - [API](#api)
   - [Roadmap](#roadmap)
   - [Contributing](#contributing)
   - [License](#license)
@@ -38,49 +33,44 @@ This project was created for the introductory hackathon of the MLH fellowship. B
 1. TODO steps for installing the repo.
 2. Clone the repo and open it locally:
 ```
-$ git clone repo
-$ cd repo
+$ git clone https://github.com/luiszugasti/sleep_stats
+$ cd sleep_stats
 ```
 
-2. Install the [requirements]():
+2. Install the [requirements](https://github.com/luiszugasti/sleep_stats/blob/master/requirements.txt):
 ```
-$ pip install -r requirements.txt
-$ pip install sktime
-$ pip install pmdarima
+$ pip install -r requirements.txt --user
 ```
+> Why do we use the --user flag? [This discussion has more details.](https://github.com/luiszugasti/sleep_stats/issues/14)
 
-## Usage
-
-TODO Sample of the usage.
+3. Run the CLI!
+```
+python -m sleep_stats
+```
 
 ## Key Features
 
-- **List features here**
-
-## API
-
-TODO **List whether there is an API that can be used. Otherwise, remove section and TOC mention**
-
-### SUB API HEADER 1
-
-### SUB API HEADER 2
+- Upload your sleep schedule via a .csv file, and the forecasting algorithm does the rest
+- Maintains a close knit history of your sleep cycles. 
 
 ## Roadmap
 
-- [ ] Reading inputs from the command line and file inputs
+- [x] Reading inputs from the command line and file inputs
+- [ ] Active display of your sleep stats, whenever you want 'em
+- [ ] Fancy, retro-style chart plotting on the command line
+- [ ] Cute ASCII art to greet you when using the CLI
 
 ## Contributing
 
-Contributions for the project are not being accepted at this time.
+See [`CONTRIBUTING`](https://github.com/luiszugasti/sleep_stats/blob/master/CONTRIBUTING.md) for more details.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
-TODO: link to License.
+Distributed under the MIT License. See [`LICENSE`](https://github.com/luiszugasti/sleep_stats/blob/master/LICENSE.txt) for more information.
 
 ## Contact
 
-Kavin Anand - [@kavin\_\_anand](https://twitter.com/kavin_anand)  
+Kavin Anand - [@kavin\_anand](https://twitter.com/kavin_anand)  
 Luis Zugasti - [@luis\_\_zugasti](https://twitter.com/luis__zugasti)
 
-Project Link: []()
+[Project permalink](https://github.com/luiszugasti/sleep_stats)
