@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from sktime.forecasting import all as sk
+import datetime
 
 
 def read_data(target_dir, is_user=False):
@@ -47,8 +48,16 @@ def read_data(target_dir, is_user=False):
 
 
 def save_data(target_dir, data_s):
+    # generate days to fill
+    base_day = datetime.datetime.today()
+    date_list = [base_day + datetime.timedelta(days=x) for x in range(len(data_s.index))]
+    date_string_list = ["{}-{}-{}".format(x.month, x.day, x.year) for x in date_list]
+    # dates_df = pd.DataFrame(date_list)
+
     data_df = data_s.to_frame()
+    data_df['Date'] = date_string_list
     data_df = data_df.rename(columns={0: "Hours of Sleep"})
+    data_df.set_index("Date", inplace=True)
     data_df.to_csv(target_dir)
 
 
