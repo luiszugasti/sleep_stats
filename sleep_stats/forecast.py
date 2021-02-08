@@ -1,5 +1,4 @@
 import pandas as pd
-import os
 import numpy as np
 from sktime.forecasting import all as sk
 
@@ -41,19 +40,22 @@ def read_data(target_dir, is_user=False):
     date_quality_s.name = "Sleep quality from 0.1 to 10.0"
     date_quality_s.index = pd.PeriodIndex(date_time_s.index, freq="D", name="Period")
 
+    if is_user:
+        # convert from hours to minutes
+        date_time_s = 60 * date_time_s
     return date_time_s, date_quality_s
 
 
 def save_data(target_dir, data_s):
     data_df = data_s.to_frame()
-    data_df = data_df.rename(columns={0: "Sleep Quality"})
+    data_df = data_df.rename(columns={0: "Hours of Sleep"})
     data_df.to_csv(target_dir)
 
 
 def run_forecast(train_df, forecast_horizon):
     """
     Given the user's historic sleep data (@train_df) and a forecast_horizon,
-    data, generate a new forecast for the user's sleep.
+    data, generate a new forecast for the user's sleep time in hours.
 
     :param train_df: The data frame to train the model on.
     :param forecast_horizon: The length of time to generate a forecast. Can be any number, however, only a max of
@@ -71,8 +73,11 @@ def run_forecast(train_df, forecast_horizon):
     # generate a prediction
     prediction = forecast.predict(r_sleep_fh)
 
+    # clamp predictions to hours.
+    prediction = prediction // 60
+
     return prediction
 
 
 def merge_data(data_head, data_tail):
-    return data_head.append(data_tail)
+    return data_head.append(data_tail, ignore_index=True)

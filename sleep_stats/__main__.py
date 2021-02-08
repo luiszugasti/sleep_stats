@@ -3,6 +3,7 @@ import sleep_stats.forecast
 import sleep_stats.visualization
 import os
 
+
 def init():
     print("Creating new directory for user defined data...")
     os.makedirs(os.getcwd() + '/default')
@@ -12,9 +13,11 @@ def init():
 def start_program():
     if not os.path.isdir(os.getcwd() + '/default'):
         init()
+
     # define name_space
     name_space = {"historical_data_location": os.getcwd() + "/default/user_history.csv",
                   "new_user_data_location": os.getcwd() + "/default/new_user_data.csv"}
+
     # use argparse to determine the user inputs/configs
     parser = argparse.ArgumentParser(description='Track and predict sleep quality.',
                                      usage='Use this program to track your sleep and predict your sleep quality.\n'
@@ -25,26 +28,27 @@ def start_program():
                                            'By default, sleep_stats stores its user preferences in the /default'
                                            'folder.\n',
                                      )
+
     # optional arguments
     parser.add_argument('-u', '--user')
     parser.add_argument('-d', '--directory')
+
     # obtain user inputted values
     name_space_temp = parser.parse_args()
     # TODO: replace defaults with optional arguments
 
     # for now: assume defaults
-    historical_user_data = sleep_stats.forecast.read_data(name_space["historical_data_location"])
+    hist_time_date, hist_quality_date = sleep_stats.forecast.read_data(name_space["historical_data_location"])
     # read in (optional) user data
-    new_user_data = sleep_stats.forecast.read_data(name_space["new_user_data_location"], is_user=True)
-    user_sleepTime = new_user_data[0]
-    user_sleepQuality = new_user_data[1]
-    # Transform sleep time into minutes instead of hours
-    user_sleepTime = 60 * user_sleepTime.iloc[:]
+    user_time_date, user_quality_date = sleep_stats.forecast.read_data(
+        name_space["new_user_data_location"],
+        is_user=True
+    )
 
     # only care about time, date relationship!
-    merged_data = sleep_stats.forecast.merge_data(historical_user_data[0], user_sleepTime)
+    merged_data = sleep_stats.forecast.merge_data(hist_time_date, user_time_date)
     # state machine
-    predictions = sleep_stats.forecast.run_forecast(merged_data, len(user_sleepTime.index))
+    predictions = sleep_stats.forecast.run_forecast(merged_data, len(user_time_date.index))
 
     print("Predictions made.")
     sleep_stats.forecast.save_data(os.getcwd() + "/default/predictions.csv", predictions)
