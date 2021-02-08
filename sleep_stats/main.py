@@ -34,6 +34,16 @@ def start_program():
 
     # for now: assume defaults
     historical_user_data = sleep_stats.forecast.read_data(name_space["historical_data_location"])
+    
+    # print(type(historical_user_data))
+    # print(len(historical_user_data[0]))
+    # new_history = tuple()
+    # for i in range(len(historical_user_data[0])):
+    #     new_history[0] = (i, historical_user_data[0][i])
+    #     new_history[1] = (i, historical_user_data[1][i])
+    # print(new_history)
+    
+
     # read in (optional) user data
     new_user_data = sleep_stats.forecast.read_data(name_space["new_user_data_location"], is_user=True)
     user_sleepTime = new_user_data[0]
@@ -43,7 +53,6 @@ def start_program():
 
     # only care about time, date relationship!
     merged_data = sleep_stats.forecast.merge_data(historical_user_data[0], user_sleepTime)
-    print(merged_data)
     # state machine
     predictions = sleep_stats.forecast.run_forecast(merged_data, len(user_sleepTime.index))
     sleep_stats.forecast.save_data(os.getcwd() + "/default/predictions.csv", predictions)

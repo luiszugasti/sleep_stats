@@ -2,6 +2,9 @@ import pandas as pd
 import os
 import numpy as np
 from sktime.forecasting import all as sk
+from sktime.forecasting.all import *
+from sktime.forecasting.ets import AutoETS
+
 
 
 def read_data(target_dir, is_user=False):
@@ -27,9 +30,10 @@ def read_data(target_dir, is_user=False):
     df['Time in bed'] = df['Time in bed'].apply(raise_minimum)
     date_quality_df = df.iloc[:, 0:2]
     date_time_df = df.iloc[:, 0:3:2]
-
     # serialize
     date_time_df.set_index('Date', inplace=True)
+    # date_time_df = date_time_df.iloc[:,0] + date_time_df.iloc[:,2:]
+    # print(date_time_df)
     date_quality_df.set_index('Date', inplace=True)
     date_time_s = date_time_df.squeeze()
     date_quality_s = date_quality_df.squeeze()
@@ -52,8 +56,11 @@ def save_data(target_dir, data_s):
 def run_forecast(train_df, forecast_horizon):
     # generate a forecasting horizon
     r_sleep_fh = np.arange(forecast_horizon) + 1
+    # afh = ForecastingHorizon(forecast_horizon, is_relative=False)
+
     # specify the model
-    forecast = sk.ExponentialSmoothing(trend="add", seasonal="multiplicative", sp=7)
+    # forecast = AutoETS(auto=True, sp=7, n_jobs=-1)
+    forecast = sk.ExponentialSmoothing(trend="add", seasonal="multiplicative", sp=2*forecast_horizon)
     # fit it to the training data
     forecast.fit(train_df)
     # generate a prediction
